@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, AsyncStorage, Image} from 'react-native';
+import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
 import DatePicker from 'react-native-datepicker';
 
 
@@ -102,6 +102,13 @@ export default class Resa extends Component {
                 Kritiskt: 
             </Text>
         </View>
+        <TouchableNativeFeedback
+        onPress={this._onPressButton}
+        background={TouchableNativeFeedback.SelectableBackground()}>
+            <View style={styles.button}>
+                <Text style={styles.buttonText}>Lägg till</Text>
+            </View>
+        </TouchableNativeFeedback>
             
         
 
@@ -152,18 +159,19 @@ const styles = StyleSheet.create({
         height: 40,
     },
     icon: {
-        height: 90,
-        width: 90,
+        height: 80,
+        width: 80,
         marginLeft: 10,
         marginRight: 10,
     },
     altContainer: {
         borderColor: '#FFFFFF',  
-        borderWidth: 4, 
+        borderWidth: 3, 
         padding: 20, 
         paddingBottom: 30,
         margin: 40, 
         marginTop: 20,
+        marginBottom: 40,
     },
     when: {
         color: '#FFFFFF', 
@@ -177,4 +185,18 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginLeft: 15,
     },
+    button:{
+        width: 150,
+        borderColor: '#FFFFFF',
+        borderWidth: 3,
+        borderRadius: 100,
+        alignItems: 'center',
+        alignSelf: 'center',
+
+    },
+    buttonText: {
+        color: '#FFFFFF',
+        margin: 10,
+        fontSize: 16,
+    }
 });
