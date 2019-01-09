@@ -1,22 +1,20 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
 import DatePicker from 'react-native-datepicker';
 
 
 export default class Resa extends Component {
     constructor(props) {
         super(props);
-        this.state = { namn: 'Resa' };
-        this.state = { från: '' };
-        this.state = { till: '' };
-        this.state = {date:""};
+        this.state = { name: '',från: '',till: '',date:"" };
+
       }
   render() {
     return (
       <View style = {styles.container}>
         
         <View style = {styles.header}>
-            <Text style={styles.headerText}>{this.state.namn}</Text>
+            <Text style={styles.headerText}>{this.state.name}</Text>
         </View>
 
         <View style={{flexDirection: 'row', marginBottom: 10,}}>
@@ -24,8 +22,7 @@ export default class Resa extends Component {
             <TextInput 
                 style={styles.textInput} 
                 placeholder=''
-                onChangeText={(namn) => this.setState({namn})}
-                value={this.state.namn}
+                onChangeText={name => this.setState({name})}
                 placeholderTextColor='white' 
                 underlineColorAndroid='transparent'>
             </TextInput>
@@ -103,20 +100,38 @@ export default class Resa extends Component {
             </Text>
         </View>
         <TouchableNativeFeedback
-        onPress={this._onPressButton}
+        onPress={this.saveName}
         background={TouchableNativeFeedback.SelectableBackground()}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Lägg till</Text>
             </View>
         </TouchableNativeFeedback>
-            
-        
+        <TouchableNativeFeedback
+        onPress={this.showName}
+        background={TouchableNativeFeedback.SelectableBackground()}>
+            <View style={styles.button}>
+                <Text style={styles.buttonText}>Visa</Text>
+            </View>
+        </TouchableNativeFeedback>
+                
 
       </View>
     );
+    
   }
- 
+  saveName=()=> {
+    const {name} = this.state;
+
+    AsyncStorage.setItem('name', name);
+
+    }
+    showName = async() =>{
+        this.state.name = await AsyncStorage.getItem('name');
+        alert(this.state.name);
+    }
+    
 }
+
 
 
 const styles = StyleSheet.create({
@@ -133,26 +148,24 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
     },
-    input: {
-        
-    },
     preInput: {
         color: '#FFFFFF',
-        padding: 10,
-        marginLeft: 10,
-        flex: 0.2,
+        paddingTop: 10,
+        textAlign: 'center',
+        flex: 0.25,
+        marginLeft: 20,
         fontSize: 14,
     },
     textInput: {
         padding: 10,
         color: '#FFFFFF',
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
-        flex: 0.70,
+        flex: 0.60,
         fontSize: 14,
         height: 40,
     },
     datePicker:{
-        flex: 0.7,
+        flex: 0.6,
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
         paddingLeft: 10, 
         paddingRight: 10,
@@ -169,7 +182,7 @@ const styles = StyleSheet.create({
         borderWidth: 3, 
         padding: 20, 
         paddingBottom: 30,
-        margin: 40, 
+        margin: 60, 
         marginTop: 20,
         marginBottom: 40,
     },
@@ -181,7 +194,7 @@ const styles = StyleSheet.create({
     },
     preAlt: {
         color: '#FFFFFF',
-        fontSize: 16,
+        fontSize: 14,
         marginTop: 5,
         marginLeft: 15,
     },
