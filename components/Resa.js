@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
+import DateTimePicker from './DateTimePicker';
+import InputComp from './InputComp';
 
 
 export default class Resa extends Component {
     constructor(props) {
         super(props);
-        this.state = { name: '',från: '',till: '',date:"" };
+        this.state = { name: '',från: '',till: ''}
 
       }
   render() {
@@ -17,16 +18,7 @@ export default class Resa extends Component {
             <Text style={styles.headerText}>{this.state.name}</Text>
         </View>
 
-        <View style={{flexDirection: 'row', marginBottom: 10,}}>
-            <Text style={styles.preInput}>Namn:</Text>
-            <TextInput 
-                style={styles.textInput} 
-                placeholder=''
-                onChangeText={name => this.setState({name})}
-                placeholderTextColor='white' 
-                underlineColorAndroid='transparent'>
-            </TextInput>
-        </View>
+        <InputComp />
 
         <View style={{flexDirection: 'row', marginBottom: 10,}}>
             <Text style={styles.preInput}>Från:</Text>
@@ -54,31 +46,9 @@ export default class Resa extends Component {
 
         <View style={{flexDirection: 'row', marginBottom: 10,}}>
             <Text style={styles.preInput}>Ankomst:</Text>
-            <DatePicker
-                style={styles.datePicker}
-                date={this.state.date}
-                mode="datetime"
-                placeholder="Välj ankomstid"
-                format="YYYY-MM-DD      HH:mm"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                dateIcon: {
-                    width: 0,
-                }, 
-                dateText: {
-                    color: '#FFFFFF',      
-                },
-                dateInput:{
-                    borderWidth: 0,
-                },
-                placeholderText: {
-                    color: '#FFFFFF',   
-                }
-                // ... You can check the source to find the other keys.
-                }}
-                onDateChange={(date) => {this.setState({date: date})}}
-            />
+            <DateTimePicker />
+            
+            
         </View>      
         <View style={{justifyContent: 'center', flexDirection: 'row', marginTop: 10,}}>
             <Image source={require('../bilder/walkicon.png')} style={styles.icon}/>
@@ -162,13 +132,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
         flex: 0.60,
         fontSize: 14,
-        height: 40,
-    },
-    datePicker:{
-        flex: 0.6,
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-        paddingLeft: 10, 
-        paddingRight: 10,
         height: 40,
     },
     icon: {
