@@ -5,7 +5,7 @@ import DatePicker from 'react-native-datepicker';
 export default class DateTimePicker extends Component {
     constructor(props) {
         super(props);
-        this.state = { date: "date" }
+        this.state = { date: "" }
       }
   
       render() {

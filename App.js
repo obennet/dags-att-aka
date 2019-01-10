@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Resa from './components/Resa';
+import Resa from './screens/Resa';
 import LinearGradient from 'react-native-linear-gradient';
 
 

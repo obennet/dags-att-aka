@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
-import DateTimePicker from './DateTimePicker';
-import InputComp from './InputComp';
+import DateTimePicker from '../components/DateTimePicker';
+import InputComp from '../components/InputComp';
 
 
 export default class Resa extends Component {
@@ -141,13 +141,12 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     altContainer: {
-        borderColor: '#FFFFFF',  
-        borderWidth: 3, 
         padding: 20, 
         paddingBottom: 30,
         margin: 60, 
         marginTop: 20,
         marginBottom: 40,
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
     },
     when: {
         color: '#FFFFFF', 
