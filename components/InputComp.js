@@ -15,7 +15,7 @@ export default class InputComp extends Component {
             <TextInput 
                 style={styles.textInput} 
                 placeholder=''
-                onChangeText={this.handleName}
+                onChangeText={(name) => this.setState({name})}
                 placeholderTextColor='white' 
                 underlineColorAndroid='transparent'>
             </TextInput>

@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
 import DateTimePicker from '../components/DateTimePicker';
-import InputComp from '../components/InputComp';
+
 
 
 export default class Resa extends Component {
     constructor(props) {
         super(props);
-        this.state = { name: '',från: '',till: ''}
+        this.state = { name: 'Titel',från: '',till: ''}
 
       }
+      
+        
   render() {
+    
     return (
       <View style = {styles.container}>
         
@@ -18,7 +21,16 @@ export default class Resa extends Component {
             <Text style={styles.headerText}>{this.state.name}</Text>
         </View>
 
-        <InputComp />
+        <View style={{flexDirection: 'row', marginBottom: 10,}}>
+        <Text style={styles.preInput}>Namn:</Text>
+            <TextInput 
+                style={styles.textInput} 
+                placeholder='Titel'
+                onChangeText={(name) => this.setState({name})}
+                placeholderTextColor='white' 
+                underlineColorAndroid='transparent'>
+            </TextInput>
+        </View>
 
         <View style={{flexDirection: 'row', marginBottom: 10,}}>
             <Text style={styles.preInput}>Från:</Text>
@@ -76,30 +88,24 @@ export default class Resa extends Component {
                 <Text style={styles.buttonText}>Lägg till</Text>
             </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback
-        onPress={this.showName}
-        background={TouchableNativeFeedback.SelectableBackground()}>
-            <View style={styles.button}>
-                <Text style={styles.buttonText}>Visa</Text>
-            </View>
-        </TouchableNativeFeedback>
-                
 
       </View>
     );
     
   }
-  saveName=()=> {
-    const {name} = this.state;
+//   saveName=()=> {
+//     const {newName} = this.state;
 
-    AsyncStorage.setItem('name', name);
+//     AsyncStorage.setItem('name', newName);
 
-    }
-    showName = async() =>{
-        this.state.name = await AsyncStorage.getItem('name');
-        alert(this.state.name);
-    }
-    
+//     }
+//     showName = async() =>{
+//        this.state.newName = await AsyncStorage.getItem('name');
+//        alert(this.state.newName);
+     
+//     }
+
+
 }
 
 
