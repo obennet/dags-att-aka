@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
 import DateTimePicker from '../components/DateTimePicker';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 
 export default class Resa extends Component {
@@ -15,7 +15,7 @@ export default class Resa extends Component {
   render() {
     
     return (
-      <View style = {styles.container}>
+        <LinearGradient colors={['#136A8A','#85418D']} start={{x: 0.0, y: 0.25}}style={{flex: 1,}} >
         
         <View style = {styles.header}>
             <Text style={styles.headerText}>{this.state.name}</Text>
@@ -82,14 +82,14 @@ export default class Resa extends Component {
             </Text>
         </View>
         <TouchableNativeFeedback
-        onPress={this.saveName}
+        onPress={() => this.props.navigation.navigate('Home')} 
         background={TouchableNativeFeedback.SelectableBackground()}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Lägg till</Text>
             </View>
         </TouchableNativeFeedback>
 
-      </View>
+        </LinearGradient> 
     );
     
   }
