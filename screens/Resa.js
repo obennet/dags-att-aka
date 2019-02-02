@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
 import DateTimePicker from '../components/DateTimePicker';
 import LinearGradient from 'react-native-linear-gradient';
+import MapView from 'react-native-maps';
 
 
 export default class Resa extends Component {
@@ -17,11 +18,11 @@ export default class Resa extends Component {
     return (
         <LinearGradient colors={['#136A8A','#85418D']} start={{x: 0.0, y: 0.25}}style={{flex: 1,}} >
         
-        <View style = {styles.header}>
+        {/* <View style = {styles.header}>
             <Text style={styles.headerText}>{this.state.name}</Text>
-        </View>
+        </View> */}
 
-        <View style={{flexDirection: 'row', marginBottom: 10,}}>
+        <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10,}}>
         <Text style={styles.preInput}>Namn:</Text>
             <TextInput 
                 style={styles.textInput} 

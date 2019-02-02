@@ -4,11 +4,16 @@ import Resa from './screens/Resa';
 import Main from './screens/Main';
 import LinearGradient from 'react-native-linear-gradient';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+import MapView, { Marker } from 'react-native-maps';
 
 export default class App extends Component {
+
+
   render() {
     return (
       <AppContainer />
+     
+
     );
   }
 }
@@ -26,6 +31,13 @@ class Home extends Component {
                 <Text style={styles.buttonText}>Lägg till resa</Text>
             </View>
         </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+        onPress={() => this.props.navigation.navigate('Main')} 
+        background={TouchableNativeFeedback.SelectableBackground()}>
+            <View style={styles.button}>
+                <Text style={styles.buttonText}>Visa karta</Text>
+            </View>
+        </TouchableNativeFeedback>
       </LinearGradient>  
     );
   }
@@ -34,11 +46,12 @@ class Home extends Component {
 const AppStackNavigator = createStackNavigator({
   Home: Home,
   Resa: Resa,
+  Main: Main,
 },
 {
   defaultNavigationOptions: {
     headerTintColor: '#fff',
-    title: 'DAGS ATT ÅKA', 
+    title: '', 
     headerTitleStyle: {
       textAlign: 'center',
       flexGrow: 1,
@@ -47,6 +60,7 @@ const AppStackNavigator = createStackNavigator({
       backgroundColor: '#136A8A', 
       elevation: 0,
     },
+    
   }
 }
 
@@ -55,5 +69,12 @@ const AppStackNavigator = createStackNavigator({
 const AppContainer = createAppContainer(AppStackNavigator); 
 
 const styles = StyleSheet.create({
+
+  buttonText: {
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+    margin: 20,
+  }
 
 });
