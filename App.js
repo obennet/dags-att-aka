@@ -38,7 +38,7 @@ const AppStackNavigator = createStackNavigator({
 {
   defaultNavigationOptions: {
     headerTintColor: '#fff',
-    title: 'DAGS ATT ÅKA', 
+    title: '', 
     headerTitleStyle: {
       textAlign: 'center',
       flexGrow: 1,
