@@ -1,27 +1,78 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback} from 'react-native';
+import {StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback, TouchableHighlight, Keyboard} from 'react-native';
 import DateTimePicker from '../components/DateTimePicker';
 import LinearGradient from 'react-native-linear-gradient';
+import MapView from 'react-native-maps';
 
 
 export default class Resa extends Component {
     constructor(props) {
         super(props);
-        this.state = { name: 'Titel',från: '',till: ''}
+        this.state = { 
+        name: 'Titel',
+        från: '',
+        till: '',
+        error: "",
+        latitude: 0,
+        longitude: 0,
+        destination: "",
+        predictions: [],
+        pointCoords: []}
 
       }
-      
+      async onChangeDestination(destination) {
+        this.setState({ destination });
+        const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyDnKUjuiM5vwA9Fsg5syGWlmCuqzo9kU4o&input=${destination}&location=${this.state.latitude}, ${this.state.longitude}&radius=2000`;
+        try {
+          const result = await fetch(apiUrl);
+          const json = await result.json();
+          console.log(json);
+          this.setState({
+            predictions: json.predictions
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }  
+      async getRouteDirections(destinationPlaceId, destinationName) {
+        try {
+          const response = await fetch(
+            `https://maps.googleapis.com/maps/api/directions/json?origin=${
+              this.state.latitude
+            },${
+              this.state.longitude
+            }&destination=place_id:${destinationPlaceId}&key=AIzaSyDnKUjuiM5vwA9Fsg5syGWlmCuqzo9kU4o`
+          );
+          const json = await response.json();
+          console.log(json);
+          this.setState({
+            predictions: [],
+            destination: destinationName
+          });
+          Keyboard.dismiss();
+        } catch (error) {
+          console.error(error);
+        }
+      }
         
   render() {
-    
+    const predictions = this.state.predictions.map(prediction => (
+        <TouchableHighlight 
+        onPress={() => this.getRouteDirections(prediction.place_id, prediction.structured_formatting.main_text)} 
+        key={prediction.id}>
+          <View>
+            <Text style={styles.suggestions}>{prediction.description}</Text>
+          </View>
+        </TouchableHighlight>
+        ));
     return (
         <LinearGradient colors={['#136A8A','#85418D']} start={{x: 0.0, y: 0.25}}style={{flex: 1,}} >
         
-        <View style = {styles.header}>
+        {/* <View style = {styles.header}>
             <Text style={styles.headerText}>{this.state.name}</Text>
-        </View>
+        </View> */}
 
-        <View style={{flexDirection: 'row', marginBottom: 10,}}>
+        <View style={{flexDirection: 'row', marginBottom: 10, marginTop: 10,}}>
         <Text style={styles.preInput}>Namn:</Text>
             <TextInput 
                 style={styles.textInput} 
@@ -32,16 +83,13 @@ export default class Resa extends Component {
             </TextInput>
         </View>
 
-        <View style={{flexDirection: 'row', marginBottom: 10,}}>
-            <Text style={styles.preInput}>Från:</Text>
-            <TextInput 
-                style={styles.textInput} 
-                placeholder='' 
-                onChangeText={(från) => this.setState({från})}
-                value={this.state.från}
-                placeholderTextColor='white' 
-                underlineColorAndroid='transparent'>
-            </TextInput>
+        <View style={{ marginBottom: 10,}}>
+            <TextInput placeholder="Enter destination..." 
+                value = {this.state.destination} 
+                style = {styles.destinationInput}
+                onChangeText={destination => this.onChangeDestination(destination)}
+            />
+            {predictions}
         </View>
 
         <View style={{flexDirection: 'row', marginBottom: 10,}}>
@@ -139,6 +187,20 @@ const styles = StyleSheet.create({
         flex: 0.60,
         fontSize: 14,
         height: 40,
+    },
+    destinationInput: {
+        height: 40,
+        backgroundColor: 'white',
+        marginLeft: 20,
+        marginRight: 20,
+      },
+    suggestions: {
+        backgroundColor: 'white',
+        padding: 5,
+        fontSize: 14,
+        borderWidth: 0.5,
+        marginRight: 20,
+        marginLeft: 20,
     },
     icon: {
         height: 80,
