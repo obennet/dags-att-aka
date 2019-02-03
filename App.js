@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableNativeFeedback} from 'react-native';
 import Resa from './screens/Resa';
-import Main from './screens/Main';
+import Map from './screens/Map';
 import LinearGradient from 'react-native-linear-gradient';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import MapView, { Marker } from 'react-native-maps';
@@ -32,7 +32,7 @@ class Home extends Component {
             </View>
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
-        onPress={() => this.props.navigation.navigate('Main')} 
+        onPress={() => this.props.navigation.navigate('Map')} 
         background={TouchableNativeFeedback.SelectableBackground()}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Visa karta</Text>
@@ -46,7 +46,7 @@ class Home extends Component {
 const AppStackNavigator = createStackNavigator({
   Home: Home,
   Resa: Resa,
-  Main: Main,
+  Map: Map,
 },
 {
   defaultNavigationOptions: {
