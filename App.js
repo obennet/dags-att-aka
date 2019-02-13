@@ -6,10 +6,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import MapView, { Marker } from 'react-native-maps';
 
+var routePoint;
+
 export default class App extends Component {
 
 
   render() {
+    // const { navigation } = this.props;
+    // routePoint = navigation.getParam('routePoint', 'NO-ID');
     return (
       <AppContainer />
      

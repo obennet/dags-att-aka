@@ -47,14 +47,15 @@ export default class Resa extends Component {
           console.log(json);
           this.setState({
             predictions: [],
-            destination: destinationName
+            destination: destinationName,
+            routePoint: json,
           });
           Keyboard.dismiss();
         } catch (error) {
           console.error(error);
         }
       }
-        
+
   render() {
     const predictions = this.state.predictions.map(prediction => (
         <TouchableHighlight 
@@ -130,7 +131,9 @@ export default class Resa extends Component {
             </Text>
         </View>
         <TouchableNativeFeedback
-        onPress={() => this.props.navigation.navigate('Home')} 
+        onPress={() =>  this.props.navigation.navigate('Home', {
+            routePoint: this.state.routePoint,
+        })} 
         background={TouchableNativeFeedback.SelectableBackground()}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Lägg till</Text>
