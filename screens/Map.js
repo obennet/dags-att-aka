@@ -79,7 +79,8 @@ export default class Main extends Component {
   }
 
   render() {
-
+    const { navigation } = this.props;
+    routePoint = navigation.getParam('routePoint', 'NO-ID');
     let marker = null;
 
     if (this.state.pointCoords.length > 1) {
@@ -128,6 +129,7 @@ export default class Main extends Component {
             this.setState({ destination });
             this.onChangeDestinationDebounced(destination);}}/>
         {predictions}
+        <Text>{pointCoords}</Text>
         </View>
     );
   }

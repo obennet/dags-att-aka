@@ -6,14 +6,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import MapView, { Marker } from 'react-native-maps';
 
-var routePoint;
+
 
 export default class App extends Component {
 
 
   render() {
-    // const { navigation } = this.props;
-    // routePoint = navigation.getParam('routePoint', 'NO-ID');
+    
     return (
       <AppContainer />
      
@@ -26,6 +25,8 @@ export default class App extends Component {
 class Home extends Component {
 
   render() {
+    const { navigation } = this.props;
+    routePoint = navigation.getParam('routePoint', 'NO-ID');
     return (
       <LinearGradient colors={['#136A8A','#85418D']} start={{x: 0.0, y: 0.25}}style={{flex: 1,}} >
         <TouchableNativeFeedback
@@ -36,12 +37,14 @@ class Home extends Component {
             </View>
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
-        onPress={() => this.props.navigation.navigate('Map')} 
+        onPress={() => this.props.navigation.navigate('Map', {
+          routePoint: this.state.routePoint,})}
         background={TouchableNativeFeedback.SelectableBackground()}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Visa karta</Text>
             </View>
         </TouchableNativeFeedback>
+        
       </LinearGradient>  
     );
   }
