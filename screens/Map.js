@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, TouchableHighlight, Keyboard} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TextInput, Keyboard, TouchableOpacity } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import _ from 'lodash';
 import PolyLine from '@mapbox/polyline';
@@ -17,10 +17,6 @@ export default class Main extends Component {
       predictions: [],
       pointCoords: []
     };
-    this.onChangeDestinationDebounced = _.debounce(
-      this.onChangeDestination,
-      1000
-    );
   }
 
   componentDidMount() {
@@ -37,32 +33,6 @@ export default class Main extends Component {
     );
   }
 
-  async getRouteDirections(destinationPlaceId, destinationName) {
-    try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/directions/json?origin=${
-          this.state.latitude
-        },${
-          this.state.longitude
-        }&destination=place_id:${destinationPlaceId}&key=AIzaSyDnKUjuiM5vwA9Fsg5syGWlmCuqzo9kU4o`
-      );
-      const json = await response.json();
-      console.log(json);
-      const points = PolyLine.decode(json.routes[0].overview_polyline.points);
-      const pointCoords = points.map(point => {
-        return { latitude: point[0], longitude: point[1] };
-      });
-      this.setState({
-        pointCoords,
-        predictions: [],
-        destination: destinationName
-      });
-      Keyboard.dismiss();
-      this.map.fitToCoordinates(pointCoords);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   async onChangeDestination(destination) {
     this.setState({ destination });
@@ -78,59 +48,51 @@ export default class Main extends Component {
     }
   }
 
+
   render() {
     const { navigation } = this.props;
-    routePoint = navigation.getParam('routePoint', 'NO-ID');
+    pointCoords = navigation.getParam('pointCoords', 'NO-ID');
     let marker = null;
+    let zoom = null;
 
-    if (this.state.pointCoords.length > 1) {
+    if (pointCoords.length > 1) {
       marker = (
         <Marker
-          coordinate={this.state.pointCoords[this.state.pointCoords.length - 1]}
+          coordinate={pointCoords[pointCoords.length - 1]}
         />
       );
+      zoom = (<TouchableOpacity style={styles.zoom} onPress={() => { this.map.fitToCoordinates(pointCoords); }}>
+        <Text style={{ fontSize: 15, color: 'black' }}>Visa hela sträckan</Text>
+      </TouchableOpacity>);
     }
-    
-    const predictions = this.state.predictions.map(prediction => (
-      <TouchableHighlight 
-      onPress={() => this.getRouteDirections(prediction.place_id, prediction.structured_formatting.main_text)} 
-      key={prediction.id}>
-        <View>
-          <Text style={styles.suggestions}>{prediction.description}</Text>
-        </View>
-      </TouchableHighlight>
-      ));
+
     return (
       <View style={styles.container}>
-      <MapView
-        ref={map => {
-        this.map = map;
-        }}
-        style={styles.mapStyle}
-        initialRegion={{
-          latitude: this.state.latitude,
-          longitude: this.state.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        
+        <MapView
+          ref={map => {
+            this.map = map;
+          }}
+          style={styles.mapStyle}
+          initialRegion={{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
           showsUserLocation={true}
         >
-        <Polyline
-          coordinates={this.state.pointCoords}
-          strokeWidth={4}
-          strokeColor="red" />
+        
+          <Polyline
+            coordinates={pointCoords}
+            strokeWidth={4}
+            strokeColor="red" />
           {marker}
         </MapView>
-        
-        <TextInput placeholder="Enter destination..." 
-          value = {this.state.destination} 
-          style = {styles.destinationInput}
-          onChangeText={destination => {
-            this.setState({ destination });
-            this.onChangeDestinationDebounced(destination);}}/>
-        {predictions}
-        <Text>{pointCoords}</Text>
-        </View>
+        <View style={styles.circle}></View>
+        {zoom}
+
+      </View>
     );
   }
 }
@@ -143,6 +105,13 @@ const styles = StyleSheet.create({
   mapStyle: {
     ...StyleSheet.absoluteFillObject
   },
+  circle: {
+    width: 40,
+    height: 40,
+    margin: 8,
+    borderRadius: 100/2,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+},
   destinationInput: {
     height: 40,
     marginTop: 60,
@@ -158,5 +127,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     marginRight: 10,
     marginLeft: 10,
+  },
+  zoom: {
+    padding: 5,
+    backgroundColor: 'white',
+    position: 'absolute',
+    margin: 10,
+    marginTop: 60,
   }
 });

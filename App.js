@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableNativeFeedback} from 'react-native';
 import Resa from './screens/Resa';
 import Map from './screens/Map';
+import Main from './screens/Main';
 import LinearGradient from 'react-native-linear-gradient';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import MapView, { Marker } from 'react-native-maps';
@@ -22,36 +23,10 @@ export default class App extends Component {
 }
 
 
-class Home extends Component {
 
-  render() {
-    const { navigation } = this.props;
-    routePoint = navigation.getParam('routePoint', 'NO-ID');
-    return (
-      <LinearGradient colors={['#136A8A','#85418D']} start={{x: 0.0, y: 0.25}}style={{flex: 1,}} >
-        <TouchableNativeFeedback
-        onPress={() => this.props.navigation.navigate('Resa')} 
-        background={TouchableNativeFeedback.SelectableBackground()}>
-            <View style={styles.button}>
-                <Text style={styles.buttonText}>Lägg till resa</Text>
-            </View>
-        </TouchableNativeFeedback>
-        <TouchableNativeFeedback
-        onPress={() => this.props.navigation.navigate('Map', {
-          routePoint: this.state.routePoint,})}
-        background={TouchableNativeFeedback.SelectableBackground()}>
-            <View style={styles.button}>
-                <Text style={styles.buttonText}>Visa karta</Text>
-            </View>
-        </TouchableNativeFeedback>
-        
-      </LinearGradient>  
-    );
-  }
-}
 
 const AppStackNavigator = createStackNavigator({
-  Home: Home,
+  Main: Main,
   Resa: Resa,
   Map: Map,
 },
@@ -63,11 +38,14 @@ const AppStackNavigator = createStackNavigator({
       textAlign: 'center',
       flexGrow: 1,
     },
-    headerStyle: {
-      backgroundColor: '#136A8A', 
+    headerStyle: { 
       elevation: 0,
+      backgroundColor: 'transparent',
+            shadowColor: 'transparent',
+            elevation: 0,
     },
-    
+    headerTransparent: true,
+        headerTintColor: '#fff',
   }
 }
 
