@@ -116,7 +116,9 @@ export default class Resa extends Component {
 
       if (this.state.mode == 'NO-ID') {
         icon = (
-          <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
+          <View>
+          <Text style={{color: 'white', fontSize: 30, textAlign: 'center', marginTop: 70,}}>Välj färdmedel</Text>
+          <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 10, }}>
             <TouchableOpacity onPress={() => this.setState({ mode: 'walking' })}>
               <Image source={require('../bilder/walkicon.png')} style={styles.icon} />
             </TouchableOpacity>
@@ -126,33 +128,28 @@ export default class Resa extends Component {
             <TouchableOpacity onPress={() => this.setState({ mode: 'driving' })}>
               <Image source={require('../bilder/caricon.png')} style={styles.icon} />
             </TouchableOpacity>
+          </View>
           </View>
           );
       }
       if (this.state.mode == 'walking') {
         icon = (
           <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
-            <TouchableOpacity onPress={() => this.setState({ mode: 'walking' })}>
               <Image source={require('../bilder/walkicon.png')} style={styles.icon} />
-            </TouchableOpacity> 
           </View>
           );
       }
       if (this.state.mode == 'bicycling') {
         icon = (
           <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
-            <TouchableOpacity onPress={() => this.setState({ mode: 'bicycling' })}>
               <Image source={require('../bilder/bikeicon.png')} style={styles.icon} />
-            </TouchableOpacity>
           </View>
           );
       }
       if (this.state.mode == 'driving') {
         icon = (
           <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
-            <TouchableOpacity onPress={() => this.setState({ mode: 'driving' })}>
               <Image source={require('../bilder/caricon.png')} style={styles.icon} />
-            </TouchableOpacity>
           </View>
           );
       }
@@ -208,21 +205,7 @@ export default class Resa extends Component {
             }}
             onDateChange={(date) => { this.setState({ date: date }) }}
           />
-
-
-
         </View>
-        </View>
-      );
-    }
-  
-
-    return (
-      <LinearGradient colors={['#0575E6', '#021B79']} start={{ x: 0.0, y: 0.25 }} style={{ flex: 1, }} >
-        {icon}
-        {input}
-        
-
         <View style={styles.altContainer}>
           <Text style={styles.when}>
             När vill du åka?
@@ -244,6 +227,18 @@ export default class Resa extends Component {
             <Text style={styles.buttonText}>Lägg till</Text>
           </View>
         </TouchableOpacity>
+        </View>
+      );
+    }
+  
+
+    return (
+      <LinearGradient colors={['#0575E6', '#021B79']} start={{ x: 0.0, y: 0.25 }} style={{ flex: 1, }} >
+        {icon}
+        {input}
+        
+
+        
 
       </LinearGradient>
     );
