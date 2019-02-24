@@ -3,6 +3,7 @@ package com.dagsattaka;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.wheelpicker.WheelPickerPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new WheelPickerPackage(),
             new RNGestureHandlerPackage(),
             new LinearGradientPackage(),
               new MapsPackage()

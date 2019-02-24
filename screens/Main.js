@@ -23,6 +23,7 @@ export default class Main extends Component {
     destination = navigation.getParam('destination', 'Ingen destination');
     date = navigation.getParam('date', 'Ingen ankomsttid');
     mode = navigation.getParam('mode', 'NO-ID');  
+    selectedItem = navigation.getParam('selectedItem', 'NO-ID');  
   
     
     const dateminus = moment(date, "YYYY-MM-DD HH:mm").subtract(durationvalue,'seconds').format('YYYY-MM-DD HH:mm');
@@ -75,6 +76,7 @@ export default class Main extends Component {
         <Text style={styles.destination}>Ankomst:  {moment(date).format('MMMM Do YYYY, HH:mm')}</Text>
         <Text style={styles.destination}>Avfärd:  {moment(dateminus).format('MMMM Do YYYY, HH:mm')}</Text>
         <Text style={styles.destination}>Färdtid:  {duration}</Text>
+        <Text style={styles.destination}>Tidsmarginal: {selectedItem} minuter</Text>
 
         <TouchableNativeFeedback
           onPress={() => this.props.navigation.navigate('Map', {

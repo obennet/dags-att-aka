@@ -55,11 +55,6 @@ const AppContainer = createAppContainer(AppStackNavigator);
 
 const styles = StyleSheet.create({
 
-  buttonText: {
-    fontSize: 30,
-    color: 'white',
-    textAlign: 'center',
-    margin: 20,
-  }
+ 
 
 });

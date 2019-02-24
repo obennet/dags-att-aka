@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import MapView, { Polyline } from 'react-native-maps';
 import PolyLine from '@mapbox/polyline';
 import DatePicker from 'react-native-datepicker';
+import { WheelPicker } from 'react-native-wheel-picker-android';
 
 
 
@@ -26,8 +27,16 @@ export default class Resa extends Component {
       date: "",
       mode: 'NO-ID',
     }
-
   }
+  state = {
+    selectedItem: 0,
+  }
+ 
+  onItemSelected = selectedItem => {
+    this.setState({ selectedItem })
+  }
+ 
+
   componentDidMount() {
     //Get current location and set initial region to this
     navigator.geolocation.getCurrentPosition(
@@ -104,11 +113,13 @@ export default class Resa extends Component {
         destination: this.state.destination,
         date: this.state.date,
         mode: this.state.mode,
+        selectedItem: this.state.selectedItem,
       })
     }
   }
 
   render() {
+    const wheelPickerData = ['0', '5', '10', '15', '20', '25','30','35','40','45','50','55','60'];
     const predictions = this.state.predictions.map(prediction => (
       <TouchableOpacity
         onPress={() => this.getRouteDirections(prediction.place_id, prediction.structured_formatting.main_text)}
@@ -214,19 +225,15 @@ export default class Resa extends Component {
             onDateChange={(date) => { this.setState({ date: date }) }}
           />
         </View>
-        <View style={styles.altContainer}>
-          <Text style={styles.when}>
-            När vill du åka?
-            </Text>
-          <Text style={styles.preAlt}>
-            God tid:
-            </Text>
-          <Text style={styles.preAlt}>
-            Rekommenderat:
-            </Text>
-          <Text style={styles.preAlt}>
-            Kritiskt:
-            </Text>
+        <View style={styles.wheelContainer}>
+          <Text style={styles.marginal}>Välj tidsmarginal i minuter</Text>
+          <WheelPicker 
+            selectedItem={this.state.selectedItem}
+            indicatorColor='white'
+            selectedItemTextColor= 'white'
+            isCyclic={true}
+            data={wheelPickerData} 
+            onItemSelected={this.onItemSelected}/>
         </View>
         <TouchableOpacity
           onPress={this.addClick}
@@ -327,7 +334,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     alignSelf: 'center',
-
+    marginTop: 40,
   },
   buttonText: {
     color: '#FFFFFF',
@@ -343,5 +350,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
+  wheelContainer: {
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  marginal:{
+    color: 'white',
+    fontSize: 16,
+    marginBottom: 20,
+  }
 
 });
