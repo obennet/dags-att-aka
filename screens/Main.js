@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback, TouchableHighlight, Keyboard } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import moment from "moment";
+import 'moment/locale/sv'
 
 
 export default class Main extends Component {
@@ -8,16 +10,23 @@ export default class Main extends Component {
     super(props);
     this.state = {
       mode: '',
+      dateMinus: '',
     };
+    
   }
+  
   render() {
     const { navigation } = this.props;
     pointCoords = navigation.getParam('pointCoords', []);
-    duration = navigation.getParam('duration', '0 tim 0 min');
+    duration = navigation.getParam('duration', 'Inte angiven');
+    durationvalue = navigation.getParam('durationvalue', 'NO-ID');
     destination = navigation.getParam('destination', 'Ingen destination');
     date = navigation.getParam('date', 'Ingen ankomsttid');
-    mode = navigation.getParam('mode', 'NO-ID');
-
+    mode = navigation.getParam('mode', 'NO-ID');  
+  
+    
+    const dateminus = moment(date, "YYYY-MM-DD HH:mm").subtract(durationvalue,'seconds').format('YYYY-MM-DD HH:mm');
+    moment.updateLocale(moment.locale(), { invalidDate: "Inget angivet datum" })
     let modeBild = null;
 
     if (mode == "walking") {
@@ -41,8 +50,11 @@ export default class Main extends Component {
       );
     }
 
+    moment.relativeTimeThreshold('m', 59);
+
 
     return (
+      
       <LinearGradient colors={['#0575E6', '#021B79']}
         //start={{x: 0.0, y: 0.0}}
         style={{ flex: 1, }} >
@@ -54,13 +66,14 @@ export default class Main extends Component {
 
           </View>
         </TouchableNativeFeedback>
-        <Text style={styles.duration}>{duration}</Text>
-        <Text style={styles.kvar}>kvar till du ska åka</Text>
+        <Text style={styles.kvar}>Dags att åka</Text>
+        <Text style={styles.duration}>{moment(dateminus, "YYYY-MM-DD h:mm").fromNow()}</Text>
+        
         {modeBild}
         <Text style={styles.destination}>Till:  {destination}</Text>
-        <Text style={styles.destination}>Från:  Nuvarande destination</Text>
-        <Text style={styles.destination}>Ankomst:  {date}</Text>
-        <Text style={styles.destination}>Avfärd:  19:15</Text>
+        {/* <Text style={styles.destination}>Från:  Nuvarande destination</Text> */}
+        <Text style={styles.destination}>Ankomst:  {moment(date).format('MMMM Do YYYY, HH:mm')}</Text>
+        <Text style={styles.destination}>Avfärd:  {moment(dateminus).format('MMMM Do YYYY, HH:mm')}</Text>
         <Text style={styles.destination}>Färdtid:  {duration}</Text>
 
         <TouchableNativeFeedback
@@ -72,10 +85,13 @@ export default class Main extends Component {
             <Text style={styles.buttonText}>Visa karta</Text>
           </View>
         </TouchableNativeFeedback>
-
       </LinearGradient>
     );
   }
+  componentDidMount() {
+    setInterval(() => this.setState({ time: Date.now() }), 60000);
+  }
+  
 }
 
 
@@ -104,7 +120,7 @@ const styles = StyleSheet.create({
   },
   kvar: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 40,
     textAlign: 'center'
   },
   icon: {
@@ -115,9 +131,9 @@ const styles = StyleSheet.create({
   },
   destination: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 23,
     textAlign: 'center',
-    margin: 3,
+    margin: 5,
   },
 
 });

@@ -9,6 +9,7 @@
   "dependencies": {
     "@mapbox/polyline": "^1.0.0",
     "lodash": "^4.17.11",
+    "moment": "^2.24.0",
     "react": "16.6.3",
     "react-native": "0.57.8",
     "react-native-datepicker": "^1.7.2",

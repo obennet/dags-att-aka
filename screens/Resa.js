@@ -7,6 +7,7 @@ import PolyLine from '@mapbox/polyline';
 import DatePicker from 'react-native-datepicker';
 
 
+
 export default class Resa extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +22,7 @@ export default class Resa extends Component {
       predictions: [],
       pointCoords: [],
       duration: 0,
+      durationvalue: 0,
       date: "",
       mode: 'NO-ID',
     }
@@ -66,6 +68,7 @@ export default class Resa extends Component {
       );
       const json = await response.json();
       const duration = json.routes[0].legs[0].duration.text;
+      const durationvalue = json.routes[0].legs[0].duration.value;
       console.log(json.routes[0]);
       const points = PolyLine.decode(json.routes[0].overview_polyline.points);
       const pointCoords = points.map(point => {
@@ -77,10 +80,13 @@ export default class Resa extends Component {
         routePoint: json,
         pointCoords: pointCoords,
         duration: duration,
+        durationvalue: durationvalue,
       });
       Keyboard.dismiss();
     } catch (error) {
-      console.error(error);
+      Alert.alert(
+        "Ogiltig destination", "Du måste välja en destination som går att nå med antingen bil, cykel eller till fots",
+      )
     }
   }
   addClick = () => {
@@ -94,6 +100,7 @@ export default class Resa extends Component {
       this.props.navigation.navigate('Main', {
         pointCoords: this.state.pointCoords,
         duration: this.state.duration,
+        durationvalue: this.state.durationvalue,
         destination: this.state.destination,
         date: this.state.date,
         mode: this.state.mode,
@@ -103,13 +110,13 @@ export default class Resa extends Component {
 
   render() {
     const predictions = this.state.predictions.map(prediction => (
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={() => this.getRouteDirections(prediction.place_id, prediction.structured_formatting.main_text)}
         key={prediction.id}>
         <View>
           <Text style={styles.suggestions}>{prediction.description}</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     ));
       let input = null;
       let icon = null;
@@ -158,7 +165,7 @@ export default class Resa extends Component {
       
       input = (
         <View>
-        <View style={{ flexDirection: 'row', marginBottom: 10, marginTop: 20, }}>
+        {/* <View style={{ flexDirection: 'row', marginBottom: 10, marginTop: 20, }}>
           <Text style={styles.preInput}>Från:</Text>
           <TextInput
             style={styles.textInput}
@@ -168,9 +175,10 @@ export default class Resa extends Component {
             placeholderTextColor='white'
             underlineColorAndroid='transparent'>
           </TextInput>
-        </View>
-        <View style={{ marginBottom: 10, }}>
-          <TextInput placeholder="Enter destination..."
+        </View> */}
+        <View style={{ marginBottom: 10, marginTop: 20, }}>
+          <TextInput placeholder="Ange destination"
+          placeholderTextColor='grey'
             value={this.state.destination}
             style={styles.destinationInput}
             onChangeText={destination => this.onChangeDestination(destination)}
@@ -179,11 +187,11 @@ export default class Resa extends Component {
         </View>
 
         <View style={{ flexDirection: 'row', marginBottom: 10, }}>
-          <Text style={styles.preInput}>Ankomst:</Text>
           <DatePicker
             style={styles.datePicker}
             date={this.state.date}
             mode="datetime"
+            androidMode= 'spinner'
             placeholder="Välj ankomstid"
             format="YYYY-MM-DD HH:mm"
             confirmBtnText="Confirm"
@@ -193,13 +201,13 @@ export default class Resa extends Component {
                 width: 0,
               },
               dateText: {
-                color: '#FFFFFF',
+                color: 'black',
               },
               dateInput: {
                 borderWidth: 0,
               },
               placeholderText: {
-                color: '#FFFFFF',
+                color: 'grey',
               }
               // ... You can check the source to find the other keys.
             }}
@@ -244,18 +252,7 @@ export default class Resa extends Component {
     );
 
   }
-  //   saveName=()=> {
-  //     const {newName} = this.state;
-
-  //     AsyncStorage.setItem('name', newName);
-
-  //     }
-  //     showName = async() =>{
-  //        this.state.newName = await AsyncStorage.getItem('name');
-  //        alert(this.state.newName);
-
-  //     }
-
+  
 
 }
 
@@ -287,6 +284,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginLeft: 20,
     marginRight: 20,
+    textAlign: 'center'
   },
   suggestions: {
     backgroundColor: 'white',
@@ -305,7 +303,7 @@ const styles = StyleSheet.create({
   altContainer: {
     padding: 20,
     paddingBottom: 30,
-    margin: 60,
+    margin: 20,
     marginTop: 20,
     marginBottom: 40,
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
@@ -337,11 +335,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   datePicker: {
-    flex: 0.6,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'white',
     paddingLeft: 10,
     paddingRight: 10,
     height: 40,
+    flex: 1,
+    marginLeft: 20,
+    marginRight: 20,
   },
 
 });

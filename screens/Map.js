@@ -62,7 +62,7 @@ export default class Main extends Component {
         />
       );
       zoom = (<TouchableOpacity style={styles.zoom} onPress={() => { this.map.fitToCoordinates(pointCoords, {
-        edgePadding: {top: 40, bottom: 40, left: 40, right: 40,}
+        edgePadding: {top: 80, bottom: 40, left: 40, right: 40,}
       } ); }}>
         <Text style={{ fontSize: 15, color: 'black' }}>Visa hela sträckan</Text>
       </TouchableOpacity>);
