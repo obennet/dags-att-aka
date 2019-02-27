@@ -113,7 +113,7 @@ export default class Resa extends Component {
         destination: this.state.destination,
         date: this.state.date,
         mode: this.state.mode,
-        selectedItem: this.state.selectedItem,
+        selectedItem: (Number.parseInt(this.state.selectedItem, 10))*5,
       })
     }
   }
@@ -176,17 +176,6 @@ export default class Resa extends Component {
       
       input = (
         <View>
-        {/* <View style={{ flexDirection: 'row', marginBottom: 10, marginTop: 20, }}>
-          <Text style={styles.preInput}>Från:</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder='Nuvarande position'
-            onChangeText={(från) => this.setState({ från })}
-            value={this.state.från}
-            placeholderTextColor='white'
-            underlineColorAndroid='transparent'>
-          </TextInput>
-        </View> */}
         <View style={{ marginBottom: 10, marginTop: 20, }}>
           <TextInput placeholder="Ange destination"
           placeholderTextColor='grey'
@@ -220,7 +209,6 @@ export default class Resa extends Component {
               placeholderText: {
                 color: 'grey',
               }
-              // ... You can check the source to find the other keys.
             }}
             onDateChange={(date) => { this.setState({ date: date }) }}
           />

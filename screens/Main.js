@@ -23,10 +23,11 @@ export default class Main extends Component {
     destination = navigation.getParam('destination', 'Ingen destination');
     date = navigation.getParam('date', 'Ingen ankomsttid');
     mode = navigation.getParam('mode', 'NO-ID');  
-    selectedItem = navigation.getParam('selectedItem', 'NO-ID');  
+    selectedItem = navigation.getParam('selectedItem', '0');  
   
+    const durationmargin = (durationvalue+(selectedItem)*60);
     
-    const dateminus = moment(date, "YYYY-MM-DD HH:mm").subtract(durationvalue,'seconds').format('YYYY-MM-DD HH:mm');
+    const dateminus = moment(date, "YYYY-MM-DD HH:mm").subtract(durationmargin,'seconds').format('YYYY-MM-DD HH:mm');
     moment.updateLocale(moment.locale(), { invalidDate: "Inget angivet datum" })
     let modeBild = null;
 
@@ -72,11 +73,10 @@ export default class Main extends Component {
         
         {modeBild}
         <Text style={styles.destination}>Till:  {destination}</Text>
-        {/* <Text style={styles.destination}>Från:  Nuvarande destination</Text> */}
-        <Text style={styles.destination}>Ankomst:  {moment(date).format('MMMM Do YYYY, HH:mm')}</Text>
-        <Text style={styles.destination}>Avfärd:  {moment(dateminus).format('MMMM Do YYYY, HH:mm')}</Text>
+        <Text style={styles.destination}>Ankomst:  {moment(date).format('DD MMMM YYYY  HH:mm')}</Text>
+        <Text style={styles.destination}>Avfärd:  {moment(dateminus).format('DD MMMM YYYY  HH:mm')}</Text>
         <Text style={styles.destination}>Färdtid:  {duration}</Text>
-        <Text style={styles.destination}>Tidsmarginal: {selectedItem} minuter</Text>
+        <Text style={styles.destination}>Tidsmarginal: {selectedItem} min</Text>
 
         <TouchableNativeFeedback
           onPress={() => this.props.navigation.navigate('Map', {
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   buttonText: {
     fontSize: 30,
     color: 'white',
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
   kvar: {
     color: 'white',
     fontSize: 40,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   icon: {
     alignSelf: 'center',
@@ -133,9 +134,9 @@ const styles = StyleSheet.create({
   },
   destination: {
     color: 'white',
-    fontSize: 23,
+    fontSize: 20,
     textAlign: 'center',
-    margin: 5,
+    margin: 3,
   },
 
 });

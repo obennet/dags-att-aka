@@ -39,6 +39,27 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		7CFC7DB7B9044A9BBC298159 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB6C76A56524BAD9A118871 /* libBVLinearGradient.a */; };
 		A6D31E2FA82445549D579328 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9083BF972E48858595E5B2 /* libRNGestureHandler.a */; };
+		223DD225DC41493C89B1F7C7 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 180BE89E51554BBD9782EB76 /* libAirMaps.a */; };
+		40B669AF38554E499982FE36 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA3CAC8ABC4541A18B46B610 /* OpenSans-Bold.ttf */; };
+		D736BBD52DD74577B09CBF8A /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F56C068BCB324CC0B8A79CEB /* OpenSans-BoldItalic.ttf */; };
+		FBECFD4CA33B4D61B48B02E4 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4F4FAA10D5471AA1FADCD9 /* OpenSans-ExtraBold.ttf */; };
+		B726DA515E10404CB05665AA /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90E92387C9634A2FB8974955 /* OpenSans-ExtraBoldItalic.ttf */; };
+		58A50ADC2CA6415EB412A49B /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C77604E789AC45FC9B10E750 /* OpenSans-Italic.ttf */; };
+		80B4790746464809A48EA3F3 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E217466B6B7431DB44C6720 /* OpenSans-Light.ttf */; };
+		A9FE78275E034DEEB09FD5FF /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6847FCE8BA0B4F46B54FDE0A /* OpenSans-LightItalic.ttf */; };
+		062296A4239F48F897CEFEDD /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB1835D7A20A48E7BD8CA1CC /* OpenSans-Regular.ttf */; };
+		8A6701473E0D4010B4C76534 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 902256A98E1340F2B4562C07 /* OpenSans-SemiBold.ttf */; };
+		6202D17E2C8943BB9FE3472D /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8854B90C4A4C4FEDB25B2DFC /* OpenSans-SemiBoldItalic.ttf */; };
+		89EF4FD0EFA04411AA6F82BD /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 412D9233E72F4BCD9897297B /* OpenSans-Bold.ttf */; };
+		17401B96398C4CC19FAE3F27 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B01EAEA5E6A248B9B01BD671 /* OpenSans-BoldItalic.ttf */; };
+		63DF344CCE76441C8A131E45 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65C30625C6B941FEB3EAD779 /* OpenSans-ExtraBold.ttf */; };
+		BA2905C781B84266AB3B09F2 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1535C799064F46EBB8772014 /* OpenSans-ExtraBoldItalic.ttf */; };
+		B35360673C8C46A590D87A25 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 804E5CC54BA04B399A395AAF /* OpenSans-Italic.ttf */; };
+		7E243640A3C5435C9D50BDDF /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D48DBF537CA4B4198B21AD6 /* OpenSans-Light.ttf */; };
+		A6D540410DD04EA8814777D8 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC7B03FB0905415CB528E109 /* OpenSans-LightItalic.ttf */; };
+		6A48317642C44C088E059439 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2827D00A1D90406F9E67FD9E /* OpenSans-Regular.ttf */; };
+		288F7EBBC4BA416F92578571 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0E47319D6744A79BD07F9E5 /* OpenSans-SemiBold.ttf */; };
+		FD4143E564AD49A9B5652E8B /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F77B2E55974472BB2B96C51 /* OpenSans-SemiBoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,6 +369,28 @@
 		6EB6C76A56524BAD9A118871 /* libBVLinearGradient.a */ = {isa = PBXFileReference; name = "libBVLinearGradient.a"; path = "libBVLinearGradient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		668BC89AD3884B11807EE982 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; name = "RNGestureHandler.xcodeproj"; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		ED9083BF972E48858595E5B2 /* libRNGestureHandler.a */ = {isa = PBXFileReference; name = "libRNGestureHandler.a"; path = "libRNGestureHandler.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		72201F31E03343C08BF98645 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		180BE89E51554BBD9782EB76 /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		BA3CAC8ABC4541A18B46B610 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; name = "OpenSans-Bold.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F56C068BCB324CC0B8A79CEB /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-BoldItalic.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BA4F4FAA10D5471AA1FADCD9 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; name = "OpenSans-ExtraBold.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		90E92387C9634A2FB8974955 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C77604E789AC45FC9B10E750 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; name = "OpenSans-Italic.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2E217466B6B7431DB44C6720 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; name = "OpenSans-Light.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6847FCE8BA0B4F46B54FDE0A /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-LightItalic.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AB1835D7A20A48E7BD8CA1CC /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; name = "OpenSans-Regular.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		902256A98E1340F2B4562C07 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "OpenSans-SemiBold.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8854B90C4A4C4FEDB25B2DFC /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-SemiBoldItalic.ttf"; path = "../android/app/src/main/assets/fonts/OpenSans/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		412D9233E72F4BCD9897297B /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B01EAEA5E6A248B9B01BD671 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-BoldItalic.ttf"; path = "../assets/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		65C30625C6B941FEB3EAD779 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; name = "OpenSans-ExtraBold.ttf"; path = "../assets/fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1535C799064F46EBB8772014 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		804E5CC54BA04B399A395AAF /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; name = "OpenSans-Italic.ttf"; path = "../assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2D48DBF537CA4B4198B21AD6 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FC7B03FB0905415CB528E109 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-LightItalic.ttf"; path = "../assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2827D00A1D90406F9E67FD9E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F0E47319D6744A79BD07F9E5 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2F77B2E55974472BB2B96C51 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -377,6 +420,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				7CFC7DB7B9044A9BBC298159 /* libBVLinearGradient.a in Frameworks */,
 				A6D31E2FA82445549D579328 /* libRNGestureHandler.a in Frameworks */,
+				223DD225DC41493C89B1F7C7 /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +609,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				9F470CAFCD7D4F70902B2DB4 /* BVLinearGradient.xcodeproj */,
 				668BC89AD3884B11807EE982 /* RNGestureHandler.xcodeproj */,
+				72201F31E03343C08BF98645 /* AirMaps.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -586,6 +631,7 @@
 				00E356EF1AD99517003FC87E /* DagsAttAkaTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				2BE1D1203A044BE5B446A823 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -611,6 +657,34 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		2BE1D1203A044BE5B446A823 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				BA3CAC8ABC4541A18B46B610 /* OpenSans-Bold.ttf */,
+				F56C068BCB324CC0B8A79CEB /* OpenSans-BoldItalic.ttf */,
+				BA4F4FAA10D5471AA1FADCD9 /* OpenSans-ExtraBold.ttf */,
+				90E92387C9634A2FB8974955 /* OpenSans-ExtraBoldItalic.ttf */,
+				C77604E789AC45FC9B10E750 /* OpenSans-Italic.ttf */,
+				2E217466B6B7431DB44C6720 /* OpenSans-Light.ttf */,
+				6847FCE8BA0B4F46B54FDE0A /* OpenSans-LightItalic.ttf */,
+				AB1835D7A20A48E7BD8CA1CC /* OpenSans-Regular.ttf */,
+				902256A98E1340F2B4562C07 /* OpenSans-SemiBold.ttf */,
+				8854B90C4A4C4FEDB25B2DFC /* OpenSans-SemiBoldItalic.ttf */,
+				412D9233E72F4BCD9897297B /* OpenSans-Bold.ttf */,
+				B01EAEA5E6A248B9B01BD671 /* OpenSans-BoldItalic.ttf */,
+				65C30625C6B941FEB3EAD779 /* OpenSans-ExtraBold.ttf */,
+				1535C799064F46EBB8772014 /* OpenSans-ExtraBoldItalic.ttf */,
+				804E5CC54BA04B399A395AAF /* OpenSans-Italic.ttf */,
+				2D48DBF537CA4B4198B21AD6 /* OpenSans-Light.ttf */,
+				FC7B03FB0905415CB528E109 /* OpenSans-LightItalic.ttf */,
+				2827D00A1D90406F9E67FD9E /* OpenSans-Regular.ttf */,
+				F0E47319D6744A79BD07F9E5 /* OpenSans-SemiBold.ttf */,
+				2F77B2E55974472BB2B96C51 /* OpenSans-SemiBoldItalic.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1058,6 +1132,26 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				40B669AF38554E499982FE36 /* OpenSans-Bold.ttf in Resources */,
+				D736BBD52DD74577B09CBF8A /* OpenSans-BoldItalic.ttf in Resources */,
+				FBECFD4CA33B4D61B48B02E4 /* OpenSans-ExtraBold.ttf in Resources */,
+				B726DA515E10404CB05665AA /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				58A50ADC2CA6415EB412A49B /* OpenSans-Italic.ttf in Resources */,
+				80B4790746464809A48EA3F3 /* OpenSans-Light.ttf in Resources */,
+				A9FE78275E034DEEB09FD5FF /* OpenSans-LightItalic.ttf in Resources */,
+				062296A4239F48F897CEFEDD /* OpenSans-Regular.ttf in Resources */,
+				8A6701473E0D4010B4C76534 /* OpenSans-SemiBold.ttf in Resources */,
+				6202D17E2C8943BB9FE3472D /* OpenSans-SemiBoldItalic.ttf in Resources */,
+				89EF4FD0EFA04411AA6F82BD /* OpenSans-Bold.ttf in Resources */,
+				17401B96398C4CC19FAE3F27 /* OpenSans-BoldItalic.ttf in Resources */,
+				63DF344CCE76441C8A131E45 /* OpenSans-ExtraBold.ttf in Resources */,
+				BA2905C781B84266AB3B09F2 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				B35360673C8C46A590D87A25 /* OpenSans-Italic.ttf in Resources */,
+				7E243640A3C5435C9D50BDDF /* OpenSans-Light.ttf in Resources */,
+				A6D540410DD04EA8814777D8 /* OpenSans-LightItalic.ttf in Resources */,
+				6A48317642C44C088E059439 /* OpenSans-Regular.ttf in Resources */,
+				288F7EBBC4BA416F92578571 /* OpenSans-SemiBold.ttf in Resources */,
+				FD4143E564AD49A9B5652E8B /* OpenSans-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,11 +1288,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
 			name = Debug;
@@ -1222,11 +1318,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
 			name = Release;
@@ -1251,6 +1349,7 @@
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
 			name = Debug;
@@ -1274,6 +1373,7 @@
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
 			name = Release;
@@ -1305,11 +1405,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
 			name = Debug;
@@ -1341,11 +1443,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
 			name = Release;
@@ -1376,11 +1480,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
 			name = Debug;
@@ -1411,11 +1517,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
 			name = Release;

@@ -11,8 +11,8 @@ export default class Main extends Component {
     super(props);
     this.state = {
       error: "",
-      latitude: 0,
-      longitude: 0,
+      latitude: 58.3648338,
+      longitude: 12.2461717,
       destination: "",
       predictions: [],
       pointCoords: []

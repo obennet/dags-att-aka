@@ -4,6 +4,16 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.wheelpicker.WheelPickerPackage;
+import com.zyu.ReactNativeWheelPickerPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.wheelpicker.WheelPickerPackage;
+import com.zyu.ReactNativeWheelPickerPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.wheelpicker.WheelPickerPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
@@ -28,9 +38,11 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new WheelPickerPackage(),
-            new RNGestureHandlerPackage(),
+            new ReactNativeWheelPickerPackage(),
+            new MapsPackage(),
             new LinearGradientPackage(),
-              new MapsPackage()
+            new RNGestureHandlerPackage()
+
       );
     }
 
