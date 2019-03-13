@@ -22,12 +22,13 @@ export default class Resa extends Component {
       destination: "",
       predictions: [],
       pointCoords: [],
-      duration: 0,
+      duration: '',
       durationvalue: 0,
       date: "",
       mode: 'NO-ID',
       selectedItem: 0,
     }
+
     this.persistData = this.persistData.bind(this);
   }
   state = {
@@ -42,11 +43,14 @@ export default class Resa extends Component {
     let duration = this.state.duration
     let destination = this.state.destination
     let mode = this.state.mode
-    let selectedItem = (Number.parseInt(this.state.selectedItem, 10))*5
+    let selectedItemInt = (Number.parseInt(this.state.selectedItem, 10))*5
+    let selectedItem = JSON.stringify(selectedItemInt)
     
     AsyncStorage.setItem('duration', duration).done();
     AsyncStorage.setItem('destination', destination).done();
     AsyncStorage.setItem('mode', mode).done();
+    AsyncStorage.setItem('selectedItem', selectedItem).done();
+
     
     
     this.props.navigation.navigate('Main', {
@@ -160,7 +164,9 @@ export default class Resa extends Component {
     ));
       let input = null;
       let icon = null;
-
+      let selectedItemInt = (Number.parseInt(this.state.selectedItem, 10))*5;
+      let selectedItem = JSON.stringify(selectedItemInt);
+      
       if (this.state.mode == 'NO-ID') {
         icon = (
           <View>
@@ -242,6 +248,7 @@ export default class Resa extends Component {
             onDateChange={(date) => { this.setState({ date: date }) }}
           />
         </View>
+        <Text>{selectedItem}</Text>
         <View style={styles.wheelContainer}>
           <Text style={styles.marginal}>Välj tidsmarginal i minuter</Text>
           <WheelPicker 
@@ -252,6 +259,7 @@ export default class Resa extends Component {
             data={wheelPickerData} 
             onItemSelected={this.onItemSelected}/>
         </View>
+        
         <TouchableOpacity
           onPress={this.persistData}
           background={TouchableNativeFeedback.SelectableBackground()}>

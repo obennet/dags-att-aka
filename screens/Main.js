@@ -14,6 +14,11 @@ export default class Main extends Component {
     }
   }
 
+  persistData(){
+    
+    
+  }
+
   check(){
     AsyncStorage.getItem('duration').then((duration) => {
       this.setState({duration: duration,})
@@ -24,8 +29,8 @@ export default class Main extends Component {
     AsyncStorage.getItem('mode').then((mode) => {
       this.setState({mode: mode,})
     })
-    AsyncStorage.getItem('ankomst').then((ankomst) => {
-      this.setState({ankomst: ankomst,})
+     AsyncStorage.getItem('selectedItem').then((selectedItem) => {
+      this.setState({selectedItem: selectedItem,})
     })
 
   }
@@ -97,8 +102,8 @@ export default class Main extends Component {
         <Text style={styles.destination}>Ankomst:  {moment(date).format('DD MMMM YYYY  HH:mm')}</Text>
         <Text style={styles.destination}>Avfärd:  {moment(dateminus).format('DD MMMM YYYY  HH:mm')}</Text>
         <Text style={styles.destination}>Färdtid:  {this.state.duration}</Text>
-        <Text style={styles.destination}>Tidsmarginal: {selectedItem} min</Text>
-        <Text style={styles.destination}>Ankomst: {this.state.ankomst}</Text>
+        <Text style={styles.destination}>Tidsmarginal:  {this.state.selectedItem} min</Text>
+        {/* <Text style={styles.destination}>Ankomst: {this.state.ankomst}</Text> */}
 
 
         <TouchableNativeFeedback
@@ -108,6 +113,13 @@ export default class Main extends Component {
           background={TouchableNativeFeedback.SelectableBackground()}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Visa karta</Text>
+          </View>
+        </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+          onPress={this.persistData}
+          background={TouchableNativeFeedback.SelectableBackground()}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText2}>SAVE</Text>
           </View>
         </TouchableNativeFeedback>
       </LinearGradient>
@@ -130,6 +142,11 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     margin: 20,
+  },
+  buttonText2: {
+    fontSize: 25,
+    color: 'white',
+    textAlign: 'center',
   },
   edit: {
     color: 'white',
