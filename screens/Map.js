@@ -30,6 +30,7 @@ export default class Main extends Component {
       },
       error => console.error(error),
       { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 }
+      
     );
   }
 

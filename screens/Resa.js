@@ -17,8 +17,8 @@ export default class Resa extends Component {
       från: '',
       till: '',
       error: "",
-      latitude: 0,
-      longitude: 0,
+      latitude: 58.3648338,
+      longitude: 12.2461717,
       destination: "",
       predictions: [],
       pointCoords: [],
@@ -26,7 +26,9 @@ export default class Resa extends Component {
       durationvalue: 0,
       date: "",
       mode: 'NO-ID',
+      selectedItem: 0,
     }
+    this.persistData = this.persistData.bind(this);
   }
   state = {
     selectedItem: 0,
@@ -36,7 +38,48 @@ export default class Resa extends Component {
     this.setState({ selectedItem })
   }
  
+  persistData(){
+    let duration = this.state.duration
+    let destination = this.state.destination
+    let mode = this.state.mode
+    let selectedItem = (Number.parseInt(this.state.selectedItem, 10))*5
+    
+    AsyncStorage.setItem('duration', duration).done();
+    AsyncStorage.setItem('destination', destination).done();
+    AsyncStorage.setItem('mode', mode).done();
+    
+    
+    this.props.navigation.navigate('Main', {
+            pointCoords: this.state.pointCoords,
+            duration: this.state.duration,
+            durationvalue: this.state.durationvalue,
+            destination: this.state.destination,
+            date: this.state.date,
+            mode: this.state.mode,
+            selectedItem: (Number.parseInt(this.state.selectedItem, 10))*5,
+    })
+  }
 
+
+  // addClick = () => {
+  //   //if (this.state.destination == 0 || this.state.date == 0 || this.state.mode == "") {
+  //   if (1 == 2) {
+  //     Alert.alert(
+  //       "Fyll i allt", "Du måste fylla i alla fält innan du kan fortsätta",
+  //     )
+  //   }
+  //   else {
+  //     this.props.navigation.navigate('Main', {
+  //       pointCoords: this.state.pointCoords,
+  //       duration: this.state.duration,
+  //       durationvalue: this.state.durationvalue,
+  //       destination: this.state.destination,
+  //       date: this.state.date,
+  //       mode: this.state.mode,
+  //       selectedItem: (Number.parseInt(this.state.selectedItem, 10))*5,
+  //     })
+  //   }
+  // }
   componentDidMount() {
     //Get current location and set initial region to this
     navigator.geolocation.getCurrentPosition(
@@ -98,25 +141,11 @@ export default class Resa extends Component {
       )
     }
   }
-  addClick = () => {
-    //if (this.state.destination == 0 || this.state.date == 0 || this.state.mode == "") {
-    if (1 == 2) {
-      Alert.alert(
-        "Fyll i allt", "Du måste fylla i alla fält innan du kan fortsätta",
-      )
-    }
-    else {
-      this.props.navigation.navigate('Main', {
-        pointCoords: this.state.pointCoords,
-        duration: this.state.duration,
-        durationvalue: this.state.durationvalue,
-        destination: this.state.destination,
-        date: this.state.date,
-        mode: this.state.mode,
-        selectedItem: (Number.parseInt(this.state.selectedItem, 10))*5,
-      })
-    }
-  }
+
+
+
+
+
 
   render() {
     const wheelPickerData = ['0', '5', '10', '15', '20', '25','30','35','40','45','50','55','60'];
@@ -224,7 +253,7 @@ export default class Resa extends Component {
             onItemSelected={this.onItemSelected}/>
         </View>
         <TouchableOpacity
-          onPress={this.addClick}
+          onPress={this.persistData}
           background={TouchableNativeFeedback.SelectableBackground()}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Lägg till</Text>

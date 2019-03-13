@@ -11,9 +11,29 @@ export default class Main extends Component {
     this.state = {
       mode: '',
       dateMinus: '',
-    };
-    
+    }
   }
+
+  check(){
+    AsyncStorage.getItem('duration').then((duration) => {
+      this.setState({duration: duration,})
+    })
+    AsyncStorage.getItem('destination').then((destination) => {
+      this.setState({destination: destination,})
+    })
+    AsyncStorage.getItem('mode').then((mode) => {
+      this.setState({mode: mode,})
+    })
+    AsyncStorage.getItem('ankomst').then((ankomst) => {
+      this.setState({ankomst: ankomst,})
+    })
+
+  }
+
+  componentWillMount(){
+    this.check()
+  }
+
   
   render() {
     const { navigation } = this.props;
@@ -23,30 +43,31 @@ export default class Main extends Component {
     destination = navigation.getParam('destination', 'Ingen destination');
     date = navigation.getParam('date', 'Ingen ankomsttid');
     mode = navigation.getParam('mode', 'NO-ID');  
-    selectedItem = navigation.getParam('selectedItem', '0');  
-  
+    selectedItem = navigation.getParam('selectedItem', '0'); 
+
+
     const durationmargin = (durationvalue+(selectedItem)*60);
     
     const dateminus = moment(date, "YYYY-MM-DD HH:mm").subtract(durationmargin,'seconds').format('YYYY-MM-DD HH:mm');
     moment.updateLocale(moment.locale(), { invalidDate: "Inget angivet datum" })
     let modeBild = null;
 
-    if (mode == "walking") {
+    if (this.state.mode == "walking") {
       modeBild = (
         <Image source={require('../bilder/walkicon.png')} style={styles.icon} />
       );
     }
-    if (mode == "bicycling") {
+    if (this.state.mode == "bicycling") {
       modeBild = (
         <Image source={require('../bilder/bikeicon.png')} style={styles.icon} />
       );
     }
-    if (mode == "driving") {
+    if (this.state.mode == "driving") {
       modeBild = (
         <Image source={require('../bilder/caricon.png')} style={styles.icon} />
       );
     }
-    if (mode == 'NO-ID') {
+    if (this.state.mode == 'NO-ID') {
       modeBild = (
         <Image source={require('../bilder/no-id.png')} style={styles.icon} />
       );
@@ -72,11 +93,13 @@ export default class Main extends Component {
         <Text style={styles.duration}>{moment(dateminus, "YYYY-MM-DD h:mm").fromNow()}</Text>
         
         {modeBild}
-        <Text style={styles.destination}>Till:  {destination}</Text>
+        <Text style={styles.destination}>Till:  {this.state.destination}</Text>
         <Text style={styles.destination}>Ankomst:  {moment(date).format('DD MMMM YYYY  HH:mm')}</Text>
         <Text style={styles.destination}>Avfärd:  {moment(dateminus).format('DD MMMM YYYY  HH:mm')}</Text>
-        <Text style={styles.destination}>Färdtid:  {duration}</Text>
+        <Text style={styles.destination}>Färdtid:  {this.state.duration}</Text>
         <Text style={styles.destination}>Tidsmarginal: {selectedItem} min</Text>
+        <Text style={styles.destination}>Ankomst: {this.state.ankomst}</Text>
+
 
         <TouchableNativeFeedback
           onPress={() => this.props.navigation.navigate('Map', {
@@ -103,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    fontSize: 30,
+    fontSize: 25,
     color: 'white',
     textAlign: 'center',
     margin: 20,
@@ -117,24 +140,24 @@ const styles = StyleSheet.create({
   },
   duration: {
     color: 'white',
-    fontSize: 40,
+    fontSize: 35,
     textAlign: 'center',
     marginTop: 0,
   },
   kvar: {
     color: 'white',
-    fontSize: 40,
+    fontSize: 35,
     textAlign: 'center',
   },
   icon: {
     alignSelf: 'center',
-    width: 120,
-    height: 120,
+    width: 110,
+    height: 110,
     margin: 20,
   },
   destination: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
     margin: 3,
   },

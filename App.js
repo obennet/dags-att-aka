@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TouchableNativeFeedback} from 'react-native';
 import Resa from './screens/Resa';
 import Map from './screens/Map';
 import Main from './screens/Main';
+import Test from './screens/Test';
 import LinearGradient from 'react-native-linear-gradient';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import MapView, { Marker } from 'react-native-maps';
@@ -26,9 +27,11 @@ export default class App extends Component {
 
 
 const AppStackNavigator = createStackNavigator({
+  
   Main: Main,
   Resa: Resa,
   Map: Map,
+  Test: Test,
 },
 {
   defaultNavigationOptions: {
