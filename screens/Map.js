@@ -10,17 +10,17 @@ export default class Main extends Component {
     super(props);
     this.state = {
       error: "",
-      latitude: 58.3648338,
-      longitude: 12.2461717,
+      latitude: 58.3670717,
+      longitude: 12.3297716,
       destination: "",
       predictions: [],
       pointCoords: []
     };
   }
   check() {
-    AsyncStorage.getItem('pointCoords').then((pointCoords) => {
-      this.setState({ pointCoords: JSON.parse(pointCoords), })
-    })
+    // AsyncStorage.getItem('pointCoords').then((pointCoords) => {
+    //   this.setState({ pointCoords: JSON.parse(pointCoords), })
+    // })
 
   }
 
@@ -61,11 +61,11 @@ export default class Main extends Component {
 
 
   render() {
-    const pointCoords = this.state.pointCoords
     let marker = null;
     let zoom = null;
 
-
+    const { navigation } = this.props;
+    pointCoords = navigation.getParam('pointCoords', [])
 
     if (pointCoords.length > 1) {
       marker = (

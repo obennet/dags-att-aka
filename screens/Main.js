@@ -14,6 +14,7 @@ export default class Main extends Component {
     this.state = {
       mode: '',
       dateMinus: '',
+      pointCoords: [],
     }
   }
 
@@ -38,7 +39,7 @@ export default class Main extends Component {
       this.setState({ durationvalue: durationvalue, })
     })
     AsyncStorage.getItem('pointCoords').then((pointCoords) => {
-      this.setState({ pointCoords: pointCoords, })
+      this.setState({ pointCoords: JSON.parse(pointCoords), })
     })
   }
 
@@ -59,10 +60,11 @@ export default class Main extends Component {
     var created = moment(dateminus, "YYYY-MM-DD HH:mm");
     console.log(dur.asSeconds());
 
-    if (dur > 0) {
+    if (dur.asSeconds() > 0) {
       PushNotification.localNotificationSchedule({
         title: "Dags att åka",
         message: "Nu är det dags att åka",
+        color: "blue",
         date: new Date(Date.now() + (dur.asSeconds()) * 1000)
       });
     }
@@ -72,7 +74,7 @@ export default class Main extends Component {
   visaKarta() {
     if (this.state.pointCoords != null) {
       this.props.navigation.navigate('Map', {
-        pointCoords: pointCoords,
+        pointCoords: this.state.pointCoords,
       })
     }
     else {
