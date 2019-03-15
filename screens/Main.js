@@ -63,7 +63,7 @@ export default class Main extends Component {
     if (dur.asSeconds() > 0) {
       PushNotification.localNotificationSchedule({
         title: "Dags att åka",
-        message: "Nu är det dags att åka",
+        message: "Nu är det snart dags att åka",
         color: "blue",
         date: new Date(Date.now() + (dur.asSeconds()) * 1000)
       });
