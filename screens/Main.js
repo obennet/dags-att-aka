@@ -1,59 +1,94 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback, TouchableHighlight, Keyboard } from 'react-native';
+import { StyleSheet, Alert, Text, View, AsyncStorage, Image, TouchableNativeFeedback } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import moment from "moment";
-import 'moment/locale/sv'
+import 'moment/locale/sv';
+import PushController from '../components/PushController';
+import PushNotification from 'react-native-push-notification';
 
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
+    this.check = this.check.bind(this);
     this.state = {
       mode: '',
       dateMinus: '',
     }
   }
 
-  persistData(){
-    
-    
-  }
 
-  check(){
+  check() {
     AsyncStorage.getItem('duration').then((duration) => {
-      this.setState({duration: duration,})
+      this.setState({ duration: duration, })
     })
     AsyncStorage.getItem('destination').then((destination) => {
-      this.setState({destination: destination,})
+      this.setState({ destination: destination, })
     })
     AsyncStorage.getItem('mode').then((mode) => {
-      this.setState({mode: mode,})
+      this.setState({ mode: mode, })
     })
-     AsyncStorage.getItem('selectedItem').then((selectedItem) => {
-      this.setState({selectedItem: selectedItem,})
+    AsyncStorage.getItem('selectedItem').then((selectedItem) => {
+      this.setState({ selectedItem: selectedItem, })
     })
-
+    AsyncStorage.getItem('date').then((date) => {
+      this.setState({ date: date, })
+    })
+    AsyncStorage.getItem('durationvalue').then((durationvalue) => {
+      this.setState({ durationvalue: durationvalue, })
+    })
+    AsyncStorage.getItem('pointCoords').then((pointCoords) => {
+      this.setState({ pointCoords: pointCoords, })
+    })
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.check()
   }
 
-  
+  componentWillReceiveProps() {
+    this.check()
+    const durationmargin = (Number.parseInt(this.state.durationvalue) + (this.state.selectedItem) * 60);
+
+    const dateminus = moment(this.state.date, "YYYY-MM-DD HH:mm").subtract(durationmargin, 'seconds').format('YYYY-MM-DD HH:mm');
+    var created = moment(dateminus, "YYYY-MM-DD HH:mm");
+    var now = new Date;
+    var dur = moment.duration({ from: now, to: created });
+
+    console.log(new Date(Date.now() + (dur.asSeconds()) * 1000));
+    var created = moment(dateminus, "YYYY-MM-DD HH:mm");
+    console.log(dur.asSeconds());
+
+    if (dur > 0) {
+      PushNotification.localNotificationSchedule({
+        title: "Dags att åka",
+        message: "Nu är det dags att åka",
+        date: new Date(Date.now() + (dur.asSeconds()) * 1000)
+      });
+    }
+  }
+
+
+  visaKarta() {
+    if (this.state.pointCoords != null) {
+      this.props.navigation.navigate('Map', {
+        pointCoords: pointCoords,
+      })
+    }
+    else {
+      Alert.alert("Lägg till destination", "Lägg till destination först genom att klicka på ändra")
+    }
+  }
+
   render() {
     const { navigation } = this.props;
     pointCoords = navigation.getParam('pointCoords', []);
-    duration = navigation.getParam('duration', 'Inte angiven');
-    durationvalue = navigation.getParam('durationvalue', 'NO-ID');
-    destination = navigation.getParam('destination', 'Ingen destination');
-    date = navigation.getParam('date', 'Ingen ankomsttid');
-    mode = navigation.getParam('mode', 'NO-ID');  
-    selectedItem = navigation.getParam('selectedItem', '0'); 
 
 
-    const durationmargin = (durationvalue+(selectedItem)*60);
-    
-    const dateminus = moment(date, "YYYY-MM-DD HH:mm").subtract(durationmargin,'seconds').format('YYYY-MM-DD HH:mm');
+
+    const durationmargin = (Number.parseInt(this.state.durationvalue) + (this.state.selectedItem) * 60);
+
+    const dateminus = moment(this.state.date, "YYYY-MM-DD HH:mm").subtract(durationmargin, 'seconds').format('YYYY-MM-DD HH:mm');
     moment.updateLocale(moment.locale(), { invalidDate: "Inget angivet datum" })
     let modeBild = null;
 
@@ -72,7 +107,7 @@ export default class Main extends Component {
         <Image source={require('../bilder/caricon.png')} style={styles.icon} />
       );
     }
-    if (this.state.mode == 'NO-ID') {
+    if (this.state.mode == null) {
       modeBild = (
         <Image source={require('../bilder/no-id.png')} style={styles.icon} />
       );
@@ -80,11 +115,19 @@ export default class Main extends Component {
 
     moment.relativeTimeThreshold('m', 59);
 
+    if (this.state.destination == null) {
+      this.setState({ destination: "Ingen destination" })
+    }
+    if (this.state.duration == null) {
+      this.setState({ duration: "Inte angiven" })
+    }
+    if (this.state.selectedItem == null) {
+      this.setState({ selectedItem: "0" })
+    }
 
     return (
-      
+
       <LinearGradient colors={['#0575E6', '#021B79']}
-        //start={{x: 0.0, y: 0.0}}
         style={{ flex: 1, }} >
         <TouchableNativeFeedback
           onPress={() => this.props.navigation.navigate('Resa')}
@@ -96,39 +139,30 @@ export default class Main extends Component {
         </TouchableNativeFeedback>
         <Text style={styles.kvar}>Dags att åka</Text>
         <Text style={styles.duration}>{moment(dateminus, "YYYY-MM-DD h:mm").fromNow()}</Text>
-        
+
         {modeBild}
         <Text style={styles.destination}>Till:  {this.state.destination}</Text>
-        <Text style={styles.destination}>Ankomst:  {moment(date).format('DD MMMM YYYY  HH:mm')}</Text>
+        <Text style={styles.destination}>Ankomst:  {moment(this.state.date).format('DD MMMM YYYY  HH:mm')}</Text>
         <Text style={styles.destination}>Avfärd:  {moment(dateminus).format('DD MMMM YYYY  HH:mm')}</Text>
         <Text style={styles.destination}>Färdtid:  {this.state.duration}</Text>
         <Text style={styles.destination}>Tidsmarginal:  {this.state.selectedItem} min</Text>
-        {/* <Text style={styles.destination}>Ankomst: {this.state.ankomst}</Text> */}
 
 
         <TouchableNativeFeedback
-          onPress={() => this.props.navigation.navigate('Map', {
-            pointCoords: pointCoords,
-          })}
+          onPress={() => this.visaKarta()}
           background={TouchableNativeFeedback.SelectableBackground()}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Visa karta</Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback
-          onPress={this.persistData}
-          background={TouchableNativeFeedback.SelectableBackground()}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText2}>SAVE</Text>
-          </View>
-        </TouchableNativeFeedback>
+        <PushController />
       </LinearGradient>
     );
   }
   componentDidMount() {
-    setInterval(() => this.setState({ time: Date.now() }), 60000);
+    setInterval(() => this.setState({ time: Date.now() }), 10000);
   }
-  
+
 }
 
 
@@ -141,7 +175,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
     textAlign: 'center',
-    margin: 20,
+    margin: 30,
   },
   buttonText2: {
     fontSize: 25,
@@ -170,13 +204,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 110,
     height: 110,
-    margin: 20,
+    margin: 30,
   },
   destination: {
     color: 'white',
     fontSize: 18,
     textAlign: 'center',
-    margin: 3,
+    margin: 4,
   },
 
 });

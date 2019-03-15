@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback, TouchableHighlight, TouchableOpacity, Keyboard, Alert } from 'react-native';
-import DateTimePicker from '../components/DateTimePicker';
+import { StyleSheet, Text, View, TextInput, AsyncStorage, Image, TouchableNativeFeedback, TouchableOpacity, Keyboard, Alert } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import MapView, { Polyline } from 'react-native-maps';
 import PolyLine from '@mapbox/polyline';
 import DatePicker from 'react-native-datepicker';
 import { WheelPicker } from 'react-native-wheel-picker-android';
@@ -34,58 +32,43 @@ export default class Resa extends Component {
   state = {
     selectedItem: 0,
   }
- 
+
   onItemSelected = selectedItem => {
     this.setState({ selectedItem })
   }
- 
-  persistData(){
+
+  persistData() {
     let duration = this.state.duration
     let destination = this.state.destination
     let mode = this.state.mode
-    let selectedItemInt = (Number.parseInt(this.state.selectedItem, 10))*5
+    let selectedItemInt = (Number.parseInt(this.state.selectedItem, 10)) * 5
     let selectedItem = JSON.stringify(selectedItemInt)
-    
+    let date = this.state.date
+    let durationvalue = JSON.stringify(this.state.durationvalue)
+    let pointCoords = JSON.stringify(this.state.pointCoords)
+
     AsyncStorage.setItem('duration', duration).done();
     AsyncStorage.setItem('destination', destination).done();
     AsyncStorage.setItem('mode', mode).done();
     AsyncStorage.setItem('selectedItem', selectedItem).done();
+    AsyncStorage.setItem('date', date).done();
+    AsyncStorage.setItem('durationvalue', durationvalue).done();
+    AsyncStorage.setItem('pointCoords', pointCoords).done();
 
-    
-    
-    this.props.navigation.navigate('Main', {
-            pointCoords: this.state.pointCoords,
-            duration: this.state.duration,
-            durationvalue: this.state.durationvalue,
-            destination: this.state.destination,
-            date: this.state.date,
-            mode: this.state.mode,
-            selectedItem: (Number.parseInt(this.state.selectedItem, 10))*5,
-    })
+
+    if (this.state.destination == 0 || this.state.date == 0 || this.state.mode == "") {
+      Alert.alert(
+        "Fyll i allt", "Du måste fylla i alla fält innan du kan fortsätta",
+      )
+
+    }
+    else {
+      this.props.navigation.navigate('Main', {
+
+      })
+    }
   }
-
-
-  // addClick = () => {
-  //   //if (this.state.destination == 0 || this.state.date == 0 || this.state.mode == "") {
-  //   if (1 == 2) {
-  //     Alert.alert(
-  //       "Fyll i allt", "Du måste fylla i alla fält innan du kan fortsätta",
-  //     )
-  //   }
-  //   else {
-  //     this.props.navigation.navigate('Main', {
-  //       pointCoords: this.state.pointCoords,
-  //       duration: this.state.duration,
-  //       durationvalue: this.state.durationvalue,
-  //       destination: this.state.destination,
-  //       date: this.state.date,
-  //       mode: this.state.mode,
-  //       selectedItem: (Number.parseInt(this.state.selectedItem, 10))*5,
-  //     })
-  //   }
-  // }
   componentDidMount() {
-    //Get current location and set initial region to this
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -97,7 +80,7 @@ export default class Resa extends Component {
       { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 }
     );
   }
-  //KOLLA HÄR SEN BITCH ASS NÄR DU SKA FIXA FRÅN
+
   async onChangeDestination(destination) {
     this.setState({ destination });
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyDnKUjuiM5vwA9Fsg5syGWlmCuqzo9kU4o&input=${destination}&location=${this.state.latitude}, ${this.state.longitude}&radius=2000`;
@@ -147,12 +130,8 @@ export default class Resa extends Component {
   }
 
 
-
-
-
-
   render() {
-    const wheelPickerData = ['0', '5', '10', '15', '20', '25','30','35','40','45','50','55','60'];
+    const wheelPickerData = ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60'];
     const predictions = this.state.predictions.map(prediction => (
       <TouchableOpacity
         onPress={() => this.getRouteDirections(prediction.place_id, prediction.structured_formatting.main_text)}
@@ -162,15 +141,14 @@ export default class Resa extends Component {
         </View>
       </TouchableOpacity>
     ));
-      let input = null;
-      let icon = null;
-      let selectedItemInt = (Number.parseInt(this.state.selectedItem, 10))*5;
-      let selectedItem = JSON.stringify(selectedItemInt);
-      
-      if (this.state.mode == 'NO-ID') {
-        icon = (
-          <View>
-          <Text style={{color: 'white', fontSize: 30, textAlign: 'center', marginTop: 70,}}>Välj färdmedel</Text>
+    let input = null;
+    let icon = null;
+    let selectedItemInt = (Number.parseInt(this.state.selectedItem, 10)) * 5;
+
+    if (this.state.mode == 'NO-ID') {
+      icon = (
+        <View>
+          <Text style={{ color: 'white', fontSize: 30, textAlign: 'center', marginTop: 70, }}>Välj färdmedel</Text>
           <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 10, }}>
             <TouchableOpacity onPress={() => this.setState({ mode: 'walking' })}>
               <Image source={require('../bilder/walkicon.png')} style={styles.icon} />
@@ -182,113 +160,104 @@ export default class Resa extends Component {
               <Image source={require('../bilder/caricon.png')} style={styles.icon} />
             </TouchableOpacity>
           </View>
-          </View>
-          );
-      }
-      if (this.state.mode == 'walking') {
-        icon = (
-          <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
-              <Image source={require('../bilder/walkicon.png')} style={styles.icon} />
-          </View>
-          );
-      }
-      if (this.state.mode == 'bicycling') {
-        icon = (
-          <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
-              <Image source={require('../bilder/bikeicon.png')} style={styles.icon} />
-          </View>
-          );
-      }
-      if (this.state.mode == 'driving') {
-        icon = (
-          <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
-              <Image source={require('../bilder/caricon.png')} style={styles.icon} />
-          </View>
-          );
-      }
-    
-      if (this.state.mode != 'NO-ID') {
-      
-      input = (
-        <View>
-        <View style={{ marginBottom: 10, marginTop: 20, }}>
-          <TextInput placeholder="Ange destination"
-          placeholderTextColor='grey'
-            value={this.state.destination}
-            style={styles.destinationInput}
-            onChangeText={destination => this.onChangeDestination(destination)}
-          />
-          {predictions}
-        </View>
-
-        <View style={{ flexDirection: 'row', marginBottom: 10, }}>
-          <DatePicker
-            style={styles.datePicker}
-            date={this.state.date}
-            mode="datetime"
-            androidMode= 'spinner'
-            placeholder="Välj ankomstid"
-            format="YYYY-MM-DD HH:mm"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                width: 0,
-              },
-              dateText: {
-                color: 'black',
-              },
-              dateInput: {
-                borderWidth: 0,
-              },
-              placeholderText: {
-                color: 'grey',
-              }
-            }}
-            onDateChange={(date) => { this.setState({ date: date }) }}
-          />
-        </View>
-        <Text>{selectedItem}</Text>
-        <View style={styles.wheelContainer}>
-          <Text style={styles.marginal}>Välj tidsmarginal i minuter</Text>
-          <WheelPicker 
-            selectedItem={this.state.selectedItem}
-            indicatorColor='white'
-            selectedItemTextColor= 'white'
-            isCyclic={true}
-            data={wheelPickerData} 
-            onItemSelected={this.onItemSelected}/>
-        </View>
-        
-        <TouchableOpacity
-          onPress={this.persistData}
-          background={TouchableNativeFeedback.SelectableBackground()}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Lägg till</Text>
-          </View>
-        </TouchableOpacity>
         </View>
       );
     }
-  
+    if (this.state.mode == 'walking') {
+      icon = (
+        <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
+          <Image source={require('../bilder/walkicon.png')} style={styles.icon} />
+        </View>
+      );
+    }
+    if (this.state.mode == 'bicycling') {
+      icon = (
+        <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
+          <Image source={require('../bilder/bikeicon.png')} style={styles.icon} />
+        </View>
+      );
+    }
+    if (this.state.mode == 'driving') {
+      icon = (
+        <View style={{ justifyContent: 'center', flexDirection: 'row', marginTop: 70, }}>
+          <Image source={require('../bilder/caricon.png')} style={styles.icon} />
+        </View>
+      );
+    }
+
+    if (this.state.mode != 'NO-ID') {
+
+      input = (
+        <View>
+          <View style={{ marginBottom: 10, marginTop: 20, }}>
+            <TextInput placeholder="Ange destination"
+              placeholderTextColor='grey'
+              value={this.state.destination}
+              style={styles.destinationInput}
+              onChangeText={destination => this.onChangeDestination(destination)}
+            />
+            {predictions}
+          </View>
+
+          <View style={{ flexDirection: 'row', marginBottom: 10, }}>
+            <DatePicker
+              style={styles.datePicker}
+              date={this.state.date}
+              mode="datetime"
+              androidMode='spinner'
+              placeholder="Välj ankomstid"
+              format="YYYY-MM-DD HH:mm"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  width: 0,
+                },
+                dateText: {
+                  color: 'black',
+                },
+                dateInput: {
+                  borderWidth: 0,
+                },
+                placeholderText: {
+                  color: 'grey',
+                }
+              }}
+              onDateChange={(date) => { this.setState({ date: date }) }}
+            />
+          </View>
+          <View style={styles.wheelContainer}>
+            <Text style={styles.marginal}>Välj tidsmarginal i minuter</Text>
+            <WheelPicker
+              selectedItem={this.state.selectedItem}
+              indicatorColor='white'
+              selectedItemTextColor='white'
+              isCyclic={true}
+              data={wheelPickerData}
+              onItemSelected={this.onItemSelected} />
+          </View>
+
+          <TouchableOpacity
+            onPress={this.persistData}
+            background={TouchableNativeFeedback.SelectableBackground()}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Lägg till</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+
 
     return (
       <LinearGradient colors={['#0575E6', '#021B79']} start={{ x: 0.0, y: 0.25 }} style={{ flex: 1, }} >
         {icon}
         {input}
-        
-
-        
-
       </LinearGradient>
     );
 
   }
-  
-
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -379,7 +348,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 40,
   },
-  marginal:{
+  marginal: {
     color: 'white',
     fontSize: 16,
     marginBottom: 20,

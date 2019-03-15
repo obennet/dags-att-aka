@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Keyboard, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import _ from 'lodash';
-import PolyLine from '@mapbox/polyline';
 
 
 export default class Main extends Component {
@@ -18,6 +17,17 @@ export default class Main extends Component {
       pointCoords: []
     };
   }
+  check() {
+    AsyncStorage.getItem('pointCoords').then((pointCoords) => {
+      this.setState({ pointCoords: JSON.parse(pointCoords), })
+    })
+
+  }
+
+  componentWillMount() {
+    this.check()
+
+  }
 
   componentDidMount() {
     //Get current location and set initial region to this
@@ -30,7 +40,7 @@ export default class Main extends Component {
       },
       error => console.error(error),
       { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 }
-      
+
     );
   }
 
@@ -51,10 +61,11 @@ export default class Main extends Component {
 
 
   render() {
-    const { navigation } = this.props;
-    pointCoords = navigation.getParam('pointCoords', 'NO-ID');
+    const pointCoords = this.state.pointCoords
     let marker = null;
     let zoom = null;
+
+
 
     if (pointCoords.length > 1) {
       marker = (
@@ -62,16 +73,18 @@ export default class Main extends Component {
           coordinate={pointCoords[pointCoords.length - 1]}
         />
       );
-      zoom = (<TouchableOpacity style={styles.zoom} onPress={() => { this.map.fitToCoordinates(pointCoords, {
-        edgePadding: {top: 80, bottom: 40, left: 40, right: 40,}
-      } ); }}>
+      zoom = (<TouchableOpacity style={styles.zoom} onPress={() => {
+        this.map.fitToCoordinates(pointCoords, {
+          edgePadding: { top: 80, bottom: 40, left: 40, right: 40, }
+        });
+      }}>
         <Text style={{ fontSize: 15, color: 'black' }}>Visa hela sträckan</Text>
       </TouchableOpacity>);
     }
 
     return (
       <View style={styles.container}>
-        
+
         <MapView
           ref={map => {
             this.map = map;
@@ -85,7 +98,7 @@ export default class Main extends Component {
           }}
           showsUserLocation={true}
         >
-        
+
           <Polyline
             coordinates={pointCoords}
             strokeWidth={4}
@@ -112,9 +125,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     margin: 8,
-    borderRadius: 100/2,
+    borderRadius: 100 / 2,
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
-},
+  },
   destinationInput: {
     height: 40,
     marginTop: 60,

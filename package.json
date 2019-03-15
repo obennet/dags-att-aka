@@ -2,7 +2,6 @@
   "name": "DagsAttAka",
   "version": "0.0.1",
   "private": true,
-  
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
@@ -18,6 +17,7 @@
     "react-native-linear-gradient": "^2.5.3",
     "react-native-maps": "^0.23.0",
     "react-native-modal-datetime-picker": "^6.0.0",
+    "react-native-push-notification": "^3.1.2",
     "react-native-wheel-picker": "^1.2.0",
     "react-native-wheel-picker-android": "^2.0.5",
     "react-navigation": "3.0.0"
@@ -32,7 +32,8 @@
     "preset": "react-native"
   },
   "rnpm": {
-    "assets": ["./assets/fonts/"]
-   }
-  
+    "assets": [
+      "./assets/fonts/"
+    ]
+  }
 }
