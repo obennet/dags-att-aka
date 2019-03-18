@@ -7,6 +7,7 @@ import PushController from '../components/PushController';
 import PushNotification from 'react-native-push-notification';
 
 
+
 export default class Main extends Component {
   constructor(props) {
     super(props);
@@ -47,27 +48,9 @@ export default class Main extends Component {
     this.check()
   }
 
+
   componentWillReceiveProps() {
     this.check()
-    const durationmargin = (Number.parseInt(this.state.durationvalue) + (this.state.selectedItem) * 60);
-
-    const dateminus = moment(this.state.date, "YYYY-MM-DD HH:mm").subtract(durationmargin, 'seconds').format('YYYY-MM-DD HH:mm');
-    var created = moment(dateminus, "YYYY-MM-DD HH:mm");
-    var now = new Date;
-    var dur = moment.duration({ from: now, to: created });
-
-    console.log(new Date(Date.now() + (dur.asSeconds()) * 1000));
-    var created = moment(dateminus, "YYYY-MM-DD HH:mm");
-    console.log(dur.asSeconds());
-
-    if (dur.asSeconds() > 0) {
-      PushNotification.localNotificationSchedule({
-        title: "Dags att åka",
-        message: "Nu är det snart dags att åka",
-        color: "blue",
-        date: new Date(Date.now() + (dur.asSeconds()) * 1000)
-      });
-    }
   }
 
 
@@ -81,13 +64,33 @@ export default class Main extends Component {
       Alert.alert("Lägg till destination", "Lägg till destination först genom att klicka på ändra")
     }
   }
-
-  render() {
+  notis() {
     const { navigation } = this.props;
     pointCoords = navigation.getParam('pointCoords', []);
+    date = navigation.getParam('date', 'NO-ID');
+    durationvalue = navigation.getParam('durationvalue', 'NO-ID');
+    selectedItem = navigation.getParam('selectedItem', 'NO-ID');
 
+    const durationmargin = (durationvalue + (selectedItem) * 60);
 
+    const dateminus = moment(date, "YYYY-MM-DD HH:mm").subtract(durationmargin, 'seconds').format('YYYY-MM-DD HH:mm');
+    var created = moment(dateminus, "YYYY-MM-DD HH:mm");
+    var now = new Date;
+    var dur = moment.duration({ from: now, to: created });
 
+    console.log(new Date(Date.now() + (dur.asSeconds()) * 1000));
+    console.log(dur.asSeconds());
+    if (dur.asSeconds() > 1) {
+      PushNotification.localNotificationSchedule({
+        title: "Dags att åka",
+        message: "Nu är det dags att åka",
+        color: "blue",
+        date: new Date(Date.now() + (dur.asSeconds()) * 1000)
+      });
+    }
+  }
+
+  render() {
     const durationmargin = (Number.parseInt(this.state.durationvalue) + (this.state.selectedItem) * 60);
 
     const dateminus = moment(this.state.date, "YYYY-MM-DD HH:mm").subtract(durationmargin, 'seconds').format('YYYY-MM-DD HH:mm');
@@ -157,6 +160,13 @@ export default class Main extends Component {
             <Text style={styles.buttonText}>Visa karta</Text>
           </View>
         </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+          onPress={() => this.notis()}
+          background={TouchableNativeFeedback.SelectableBackground()}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText2}>Lägg till notis</Text>
+          </View>
+        </TouchableNativeFeedback>
         <PushController />
       </LinearGradient>
     );
@@ -177,12 +187,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
     textAlign: 'center',
-    margin: 30,
+    marginTop: 20,
   },
   buttonText2: {
     fontSize: 25,
     color: 'white',
     textAlign: 'center',
+    margin: 10,
   },
   edit: {
     color: 'white',
@@ -206,7 +217,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 110,
     height: 110,
-    margin: 30,
+    margin: 20,
   },
   destination: {
     color: 'white',

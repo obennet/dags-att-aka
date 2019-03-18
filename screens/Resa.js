@@ -64,7 +64,10 @@ export default class Resa extends Component {
     }
     else {
       this.props.navigation.navigate('Main', {
-
+        pointCoords: this.state.pointCoords,
+        date: this.state.date,
+        durationvalue: this.state.durationvalue,
+        selectedItem: selectedItemInt,
       })
     }
   }
