@@ -87,6 +87,7 @@ export default class Main extends Component {
         color: "blue",
         date: new Date(Date.now() + (dur.asSeconds()) * 1000)
       });
+      Alert.alert("Notis tillagd", "Du kommmer få en notis när det är dags att åka")
     }
   }
 
